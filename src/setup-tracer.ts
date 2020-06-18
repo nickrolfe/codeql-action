@@ -33,7 +33,7 @@ async function tracerConfig(
     let envFile = path.resolve(database, 'working', 'env.tmp');
     await exec.exec(codeql.cmd, ['database', 'trace-command', database,
         ...compilerSpecArg,
-        process.execPath, path.resolve(__dirname, 'tracer-env.js'), envFile]
+        process.execPath, __dirname + '/tracer-env.js', envFile]
     );
 
     const env: { [key: string]: string } = JSON.parse(fs.readFileSync(envFile, 'utf-8'));
@@ -218,7 +218,7 @@ async function run() {
                 } else if (process.platform === 'win32') {
                     await exec.exec(
                         'powershell',
-                        [path.resolve(__dirname, '..', 'src', 'inject-tracer.ps1'),
+                        [__dirname + '/inject-tracer.ps1',
                         path.resolve(codeqlSetup.tools, 'win64', 'tracer.exe')],
                         { env: { 'ODASA_TRACER_CONFIGURATION': mainTracerConfig.spec } });
                 } else {
