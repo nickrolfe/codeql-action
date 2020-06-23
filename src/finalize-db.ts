@@ -20,7 +20,7 @@ import * as util from './util';
  *
  * Format is a map from language to an array of path suffixes of .ql files.
  */
-const DISABLED_BUILTIN_QUERIES: {[language: string]: string[]} = {
+const DISABLED_BUILTIN_QUERIES: { [language: string]: string[] } = {
   'csharp': [
     'ql/src/Security Features/CWE-937/VulnerablePackage.ql',
     'ql/src/Security Features/CWE-451/MissingXFrameOptions.ql',
@@ -116,11 +116,11 @@ async function runResolveQueries(codeqlCmd: string, queries: string[]): Promise<
 
   await exec.exec(
     codeqlCmd, [
-      'resolve',
-      'queries',
-      ...queries,
-      '--format=bylanguage'
-    ],
+    'resolve',
+    'queries',
+    ...queries,
+    '--format=bylanguage'
+  ],
     options);
 
   return JSON.parse(output);
